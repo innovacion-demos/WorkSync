@@ -1,0 +1,8 @@
+# WorkSync - Robots.txt
+# Allow all crawlers to access all content
+
+User-agent: *
+Allow: /
+
+# Sitemap location (update this URL when deployed)
+# Sitemap: https://andriu.sl.com/sitemap.xml

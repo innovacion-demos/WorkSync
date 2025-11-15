@@ -1,0 +1,4 @@
+# UV Configuration for WorkSync MCP Server
+
+# Use native TLS certificates (required for corporate environments)
+native-tls = true

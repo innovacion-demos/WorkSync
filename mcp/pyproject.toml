@@ -1,0 +1,17 @@
+[project]
+name = "worksync-mcp"
+version = "0.3.0"
+description = "MCP server that exposes WorkSync (mic-issues) backend API endpoints as tools - Clean Architecture"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp>=2.8.1",
+    "httpx>=0.28.1",
+]
+
+[project.scripts]
+worksync-mcp = "worksync_mcp.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
