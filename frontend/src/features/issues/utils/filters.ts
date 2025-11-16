@@ -13,7 +13,10 @@ export const EMPLOYEE_FILTER = {
 /**
  * Check if issue matches the status filter
  */
-export function matchesStatus(issue: Issue, filterStatus: FilterStatus): boolean {
+export function matchesStatus(
+	issue: Issue,
+	filterStatus: FilterStatus,
+): boolean {
 	return filterStatus === "all" || issue.status === filterStatus;
 }
 
@@ -25,7 +28,8 @@ export function matchesStatus(issue: Issue, filterStatus: FilterStatus): boolean
  */
 export function matchesEmployee(issue: Issue, filterEmployee: string): boolean {
 	if (filterEmployee === EMPLOYEE_FILTER.ALL) return true;
-	if (filterEmployee === EMPLOYEE_FILTER.UNASSIGNED) return issue.assignee === null;
+	if (filterEmployee === EMPLOYEE_FILTER.UNASSIGNED)
+		return issue.assignee === null;
 	return issue.assignee === filterEmployee;
 }
 
@@ -37,11 +41,9 @@ export function matchesSearch(issue: Issue, searchQuery: string): boolean {
 	if (searchQuery === "") return true;
 
 	const query = searchQuery.toLowerCase();
-	const searchableFields = [
-		issue.title,
-		issue.requester,
-		issue.id,
-	].map(field => field.toLowerCase());
+	const searchableFields = [issue.title, issue.requester, issue.id].map(
+		(field) => field.toLowerCase(),
+	);
 
-	return searchableFields.some(field => field.includes(query));
+	return searchableFields.some((field) => field.includes(query));
 }

@@ -9,7 +9,7 @@
 function getUnassignLabelClasses(
 	isCurrentAssignee: boolean,
 	isSelected: boolean,
-	useCustom: boolean
+	useCustom: boolean,
 ): string {
 	if (isCurrentAssignee) {
 		return "border-gray-200 bg-gray-100 opacity-60 cursor-not-allowed";

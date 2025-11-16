@@ -52,8 +52,9 @@ export function FloatingChat() {
 
 		try {
 			// TODO: Integrate with real AI (OpenAI, Claude, etc)
-			await new Promise(resolve => setTimeout(resolve, 800));
-			const mockReply = "I'm a placeholder response. Connect me to a real AI API (OpenAI, Claude, etc.) to provide intelligent answers about your issues.";
+			await new Promise((resolve) => setTimeout(resolve, 800));
+			const mockReply =
+				"I'm a placeholder response. Connect me to a real AI API (OpenAI, Claude, etc.) to provide intelligent answers about your issues.";
 
 			const agentResponse: Message = {
 				id: (Date.now() + 1).toString(),
@@ -89,12 +90,6 @@ export function FloatingChat() {
 	const handleVoiceRecording = () => {
 		// TODO: Implement voice recording
 		setIsRecording(!isRecording);
-
-		if (isRecording) {
-			console.log("Stopping voice recording...");
-		} else {
-			console.log("Starting voice recording...");
-		}
 	};
 
 	return (
@@ -123,7 +118,9 @@ export function FloatingChat() {
 							</div>
 							<div>
 								<h3 className="font-semibold">Issues Assistant</h3>
-								<p className="text-xs text-blue-100">AI-powered bot • Always available</p>
+								<p className="text-xs text-blue-100">
+									AI-powered bot • Always available
+								</p>
 							</div>
 						</div>
 						<button
@@ -132,7 +129,12 @@ export function FloatingChat() {
 							className="text-white/80 hover:text-white transition-colors"
 							aria-label="Close chat"
 						>
-							<svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<svg
+								className="h-6 w-6"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
 								<path
 									strokeLinecap="round"
 									strokeLinejoin="round"
@@ -161,7 +163,9 @@ export function FloatingChat() {
 									</p>
 									<p
 										className={`text-xs mt-1 ${
-											message.sender === "user" ? "text-blue-100" : "text-gray-500"
+											message.sender === "user"
+												? "text-blue-100"
+												: "text-gray-500"
 										}`}
 									>
 										{formatTime(message.timestamp)}
@@ -185,7 +189,10 @@ export function FloatingChat() {
 						<div ref={messagesEndRef} />
 					</div>
 
-					<form onSubmit={handleSendMessage} className="p-4 bg-white border-t border-gray-200 rounded-b-2xl">
+					<form
+						onSubmit={handleSendMessage}
+						className="p-4 bg-white border-t border-gray-200 rounded-b-2xl"
+					>
 						<div className="flex gap-2 items-end">
 							<button
 								type="button"
@@ -196,14 +203,25 @@ export function FloatingChat() {
 										: "bg-gray-100 text-gray-600 hover:bg-gray-200"
 								} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
 								title={isRecording ? "Stop recording" : "Start voice recording"}
-								aria-label={isRecording ? "Stop recording" : "Start voice recording"}
+								aria-label={
+									isRecording ? "Stop recording" : "Start voice recording"
+								}
 							>
 								{isRecording ? (
-									<svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+									<svg
+										className="h-5 w-5"
+										fill="currentColor"
+										viewBox="0 0 24 24"
+									>
 										<rect x="6" y="6" width="12" height="12" rx="2" />
 									</svg>
 								) : (
-									<svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<svg
+										className="h-5 w-5"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+									>
 										<path
 											strokeLinecap="round"
 											strokeLinejoin="round"
@@ -220,7 +238,9 @@ export function FloatingChat() {
 									type="text"
 									value={inputText}
 									onChange={(e) => setInputText(e.target.value)}
-									placeholder={isRecording ? "Recording..." : "Type a message..."}
+									placeholder={
+										isRecording ? "Recording..." : "Type a message..."
+									}
 									disabled={isRecording}
 									className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm disabled:bg-gray-50 disabled:cursor-not-allowed"
 									aria-label="Chat message input"
@@ -241,7 +261,11 @@ export function FloatingChat() {
 								title="Send message"
 								aria-label="Send message"
 							>
-								<svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+								<svg
+									className="h-5 w-5"
+									fill="currentColor"
+									viewBox="0 0 24 24"
+								>
 									<path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
 								</svg>
 							</button>
@@ -266,7 +290,12 @@ export function FloatingChat() {
 				aria-label={isOpen ? "Close chat assistant" : "Open chat assistant"}
 			>
 				{isOpen ? (
-					<svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<svg
+						className="h-6 w-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
 						<path
 							strokeLinecap="round"
 							strokeLinejoin="round"
@@ -276,7 +305,12 @@ export function FloatingChat() {
 					</svg>
 				) : (
 					<>
-						<svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+						<svg
+							className="h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
 							<path
 								strokeLinecap="round"
 								strokeLinejoin="round"

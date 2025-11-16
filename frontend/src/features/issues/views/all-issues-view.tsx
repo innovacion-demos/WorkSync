@@ -27,15 +27,16 @@ import {
 export function AllIssuesView() {
 	const [activeModal, setActiveModal] = useState<ModalType>(null);
 
-	const { filterStatus, searchQuery, selectedIssues, issues, hasInitialized } = useIssuesStore(
-		useShallow((state) => ({
-			filterStatus: state.filterStatus,
-			searchQuery: state.searchQuery,
-			selectedIssues: state.selectedIssues,
-			issues: state.issues,
-			hasInitialized: state.hasInitialized,
-		}))
-	);
+	const { filterStatus, searchQuery, selectedIssues, issues, hasInitialized } =
+		useIssuesStore(
+			useShallow((state) => ({
+				filterStatus: state.filterStatus,
+				searchQuery: state.searchQuery,
+				selectedIssues: state.selectedIssues,
+				issues: state.issues,
+				hasInitialized: state.hasInitialized,
+			})),
+		);
 
 	const filteredIssues = useIssuesStore(useShallow(selectFilteredIssues));
 
@@ -43,7 +44,7 @@ export function AllIssuesView() {
 		useShallow((state) => ({
 			setFilterStatus: state.setFilterStatus,
 			setSearchQuery: state.setSearchQuery,
-		}))
+		})),
 	);
 
 	const statusCounts = useMemo(() => selectStatusCounts({ issues }), [issues]);
@@ -57,9 +58,9 @@ export function AllIssuesView() {
 						onCreateIssue={() => setActiveModal("create")}
 						onCreateFromText={() => setActiveModal("createFromText")}
 					/>
-					
+
 					<IssuesFiltersSkeleton />
-					
+
 					<div className="mt-6">
 						<IssuesTableSkeleton />
 					</div>

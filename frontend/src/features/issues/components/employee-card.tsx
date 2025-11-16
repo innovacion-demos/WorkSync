@@ -1,6 +1,10 @@
 import { memo } from "react";
 import type { Issue, IssueStatus } from "@/features/issues/types/issue";
-import { statusStyles, priorityStyles, priorityIcons } from "@/features/issues/constants/issue-styles";
+import {
+	statusStyles,
+	priorityStyles,
+	priorityIcons,
+} from "@/features/issues/constants/issue-styles";
 import { formatRelativeDate } from "@/features/issues/utils/date-format";
 
 interface EmployeeCardProps {
@@ -52,7 +56,9 @@ export const EmployeeCard = memo(function EmployeeCard({
 				<div className="flex items-center gap-4">
 					<div className="hidden sm:flex gap-2">
 						{["open", "pending", "solved", "closed"].map((status) => {
-							const statusCount = issues.filter((i) => i.status === status).length;
+							const statusCount = issues.filter(
+								(i) => i.status === status,
+							).length;
 							if (statusCount === 0) return null;
 							return (
 								<span
@@ -61,7 +67,8 @@ export const EmployeeCard = memo(function EmployeeCard({
 										statusStyles[status as IssueStatus]
 									}`}
 								>
-									{statusCount} {status.charAt(0).toUpperCase() + status.slice(1)}
+									{statusCount}{" "}
+									{status.charAt(0).toUpperCase() + status.slice(1)}
 								</span>
 							);
 						})}
@@ -86,110 +93,110 @@ export const EmployeeCard = memo(function EmployeeCard({
 
 			{/* Employee Issues Table */}
 			<div className="border-t border-gray-200">
-					{issues.length === 0 ? (
-						<div className="px-6 py-12 text-center text-gray-500">
-							No issues assigned
-						</div>
-					) : (
-						<div className="overflow-x-auto">
-							<table className="w-full">
-								<thead>
-									<tr className="bg-gray-50 border-b border-gray-200">
-										<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-											ID
-										</th>
-										<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-											Subject
-										</th>
-										<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-											Requester
-										</th>
-										<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-											Status
-										</th>
-										<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-											Priority
-										</th>
-										<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-											Updated
-										</th>
-									</tr>
-								</thead>
-								<tbody className="divide-y divide-gray-200">
-									{issues.map((issue) => (
-										<tr
-											key={issue.id}
-											className="hover:bg-gray-50 transition-colors"
-										>
-											<td className="px-6 py-4 whitespace-nowrap">
-												<span className="text-sm font-medium text-blue-600">
-													{issue.id}
+				{issues.length === 0 ? (
+					<div className="px-6 py-12 text-center text-gray-500">
+						No issues assigned
+					</div>
+				) : (
+					<div className="overflow-x-auto">
+						<table className="w-full">
+							<thead>
+								<tr className="bg-gray-50 border-b border-gray-200">
+									<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+										ID
+									</th>
+									<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+										Subject
+									</th>
+									<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+										Requester
+									</th>
+									<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+										Status
+									</th>
+									<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+										Priority
+									</th>
+									<th className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+										Updated
+									</th>
+								</tr>
+							</thead>
+							<tbody className="divide-y divide-gray-200">
+								{issues.map((issue) => (
+									<tr
+										key={issue.id}
+										className="hover:bg-gray-50 transition-colors"
+									>
+										<td className="px-6 py-4 whitespace-nowrap">
+											<span className="text-sm font-medium text-blue-600">
+												{issue.id}
+											</span>
+										</td>
+										<td className="px-6 py-4">
+											<div className="flex flex-col">
+												<span className="text-sm font-medium text-gray-900">
+													{issue.title}
 												</span>
-											</td>
-											<td className="px-6 py-4">
-												<div className="flex flex-col">
-													<span className="text-sm font-medium text-gray-900">
-														{issue.title}
-													</span>
-													{issue.tags.length > 0 && (
-														<div className="flex gap-1 mt-1">
-															{issue.tags.map((tag, index) => (
-																<span
-																	key={`${issue.id}-${tag}-${index}`}
-																	className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700"
-																>
-																	{tag}
-																</span>
-															))}
-														</div>
-													)}
-												</div>
-											</td>
-											<td className="px-6 py-4 whitespace-nowrap">
-												<div className="flex items-center">
-													<div
-														className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-sm font-medium mr-3"
-														aria-hidden="true"
-													>
-														{issue.requester.charAt(0)}
+												{issue.tags.length > 0 && (
+													<div className="flex gap-1 mt-1">
+														{issue.tags.map((tag, index) => (
+															<span
+																key={`${issue.id}-${tag}-${index}`}
+																className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700"
+															>
+																{tag}
+															</span>
+														))}
 													</div>
-													<span className="text-sm text-gray-900">
-														{issue.requester}
-													</span>
+												)}
+											</div>
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap">
+											<div className="flex items-center">
+												<div
+													className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white text-sm font-medium mr-3"
+													aria-hidden="true"
+												>
+													{issue.requester.charAt(0)}
 												</div>
-											</td>
-											<td className="px-6 py-4 whitespace-nowrap">
-												<span
-													className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
-														statusStyles[issue.status]
-													}`}
-												>
-													{issue.status.charAt(0).toUpperCase() +
-														issue.status.slice(1)}
+												<span className="text-sm text-gray-900">
+													{issue.requester}
 												</span>
-											</td>
-											<td className="px-6 py-4 whitespace-nowrap">
-												<span
-													className={`text-sm flex items-center gap-1 ${
-														priorityStyles[issue.priority]
-													}`}
-												>
-													<span className="text-base">
-														{priorityIcons[issue.priority]}
-													</span>
-													{issue.priority.charAt(0).toUpperCase() +
-														issue.priority.slice(1)}
+											</div>
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap">
+											<span
+												className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
+													statusStyles[issue.status]
+												}`}
+											>
+												{issue.status.charAt(0).toUpperCase() +
+													issue.status.slice(1)}
+											</span>
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap">
+											<span
+												className={`text-sm flex items-center gap-1 ${
+													priorityStyles[issue.priority]
+												}`}
+											>
+												<span className="text-base">
+													{priorityIcons[issue.priority]}
 												</span>
-											</td>
-											<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-												{formatRelativeDate(issue.updatedAt)}
-											</td>
-										</tr>
-									))}
-								</tbody>
-							</table>
-						</div>
-					)}
+												{issue.priority.charAt(0).toUpperCase() +
+													issue.priority.slice(1)}
+											</span>
+										</td>
+										<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+											{formatRelativeDate(issue.updatedAt)}
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				)}
 			</div>
 		</details>
 	);

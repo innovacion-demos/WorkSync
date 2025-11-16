@@ -47,10 +47,7 @@ export const IssuesFilters = memo(function IssuesFilters({
 								: "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
 						}`}
 					>
-						All{" "}
-						<span className="ml-1 text-xs">
-							({statusCounts.all})
-						</span>
+						All <span className="ml-1 text-xs">({statusCounts.all})</span>
 					</button>
 					<button
 						type="button"
@@ -61,10 +58,7 @@ export const IssuesFilters = memo(function IssuesFilters({
 								: "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
 						}`}
 					>
-						Open{" "}
-						<span className="ml-1 text-xs">
-							({statusCounts.open})
-						</span>
+						Open <span className="ml-1 text-xs">({statusCounts.open})</span>
 					</button>
 					<button
 						type="button"
@@ -76,9 +70,7 @@ export const IssuesFilters = memo(function IssuesFilters({
 						}`}
 					>
 						Pending{" "}
-						<span className="ml-1 text-xs">
-							({statusCounts.pending})
-						</span>
+						<span className="ml-1 text-xs">({statusCounts.pending})</span>
 					</button>
 					<button
 						type="button"
@@ -89,10 +81,7 @@ export const IssuesFilters = memo(function IssuesFilters({
 								: "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
 						}`}
 					>
-						Solved{" "}
-						<span className="ml-1 text-xs">
-							({statusCounts.solved})
-						</span>
+						Solved <span className="ml-1 text-xs">({statusCounts.solved})</span>
 					</button>
 					<button
 						type="button"
@@ -103,10 +92,7 @@ export const IssuesFilters = memo(function IssuesFilters({
 								: "bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
 						}`}
 					>
-						Closed{" "}
-						<span className="ml-1 text-xs">
-							({statusCounts.closed})
-						</span>
+						Closed <span className="ml-1 text-xs">({statusCounts.closed})</span>
 					</button>
 				</div>
 			</div>

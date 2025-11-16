@@ -4,32 +4,46 @@ import type { IssuePriority, IssueStatus } from "@/features/issues/types/issue";
 
 // Lazy load modals - they're only loaded when needed
 const CreateIssueModal = lazy(() =>
-	import("@/features/issues/components/modals/create-issue-modal").then((module) => ({
-		default: module.CreateIssueModal,
-	}))
+	import("@/features/issues/components/modals/create-issue-modal").then(
+		(module) => ({
+			default: module.CreateIssueModal,
+		}),
+	),
 );
 const CreateIssueFromTextModal = lazy(() =>
-	import("@/features/issues/components/modals/create-issue-from-text-modal").then((module) => ({
+	import(
+		"@/features/issues/components/modals/create-issue-from-text-modal"
+	).then((module) => ({
 		default: module.CreateIssueFromTextModal,
-	}))
+	})),
 );
 const BulkEditModal = lazy(() =>
-	import("@/features/issues/components/modals/bulk-edit-modal").then((module) => ({
-		default: module.BulkEditModal,
-	}))
+	import("@/features/issues/components/modals/bulk-edit-modal").then(
+		(module) => ({
+			default: module.BulkEditModal,
+		}),
+	),
 );
 const ChangeStatusModal = lazy(() =>
-	import("@/features/issues/components/modals/change-status-modal").then((module) => ({
-		default: module.ChangeStatusModal,
-	}))
+	import("@/features/issues/components/modals/change-status-modal").then(
+		(module) => ({
+			default: module.ChangeStatusModal,
+		}),
+	),
 );
 const AssignModal = lazy(() =>
 	import("@/features/issues/components/modals/assign-modal").then((module) => ({
 		default: module.AssignModal,
-	}))
+	})),
 );
 
-export type ModalType = "create" | "createFromText" | "bulkEdit" | "changeStatus" | "assign" | null;
+export type ModalType =
+	| "create"
+	| "createFromText"
+	| "bulkEdit"
+	| "changeStatus"
+	| "assign"
+	| null;
 
 /**
  * Parse a line for a specific field
@@ -90,7 +104,7 @@ function parseIssueFromText(text: string) {
 		else if (statusValue) status = parseStatus(statusValue);
 		else if (assigneeValue) assignee = assigneeValue;
 		else if (descriptionValue) description = descriptionValue;
-		else if (description) description += "\n" + line;
+		else if (description) description += `\n${line}`;
 	}
 
 	// Fallback values

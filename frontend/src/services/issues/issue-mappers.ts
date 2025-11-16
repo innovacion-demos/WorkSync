@@ -3,7 +3,11 @@
  * Convert between backend and frontend issue formats
  */
 
-import type { Issue, IssueStatus, IssuePriority } from "@/features/issues/types/issue";
+import type {
+	Issue,
+	IssueStatus,
+	IssuePriority,
+} from "@/features/issues/types/issue";
 import type { BackendIssue } from "@/services/issues/issue-types";
 
 const BACKEND_TO_FRONTEND_STATUS: Record<string, IssueStatus> = {
@@ -41,7 +45,9 @@ const FRONTEND_TO_BACKEND_PRIORITY: Record<IssuePriority, string> = {
 export function mapBackendStatusToFrontend(backendStatus: string): IssueStatus {
 	const mapped = BACKEND_TO_FRONTEND_STATUS[backendStatus];
 	if (!mapped) {
-		console.warn(`Unknown backend status: ${backendStatus}, defaulting to open`);
+		console.warn(
+			`Unknown backend status: ${backendStatus}, defaulting to open`,
+		);
 		return "open";
 	}
 	return mapped;
@@ -50,17 +56,23 @@ export function mapBackendStatusToFrontend(backendStatus: string): IssueStatus {
 /**
  * Map frontend status to backend status
  */
-export function mapFrontendStatusToBackend(frontendStatus: IssueStatus): string {
+export function mapFrontendStatusToBackend(
+	frontendStatus: IssueStatus,
+): string {
 	return FRONTEND_TO_BACKEND_STATUS[frontendStatus] || "OPEN";
 }
 
 /**
  * Map backend priority to frontend priority
  */
-export function mapBackendPriorityToFrontend(backendPriority: string): IssuePriority {
+export function mapBackendPriorityToFrontend(
+	backendPriority: string,
+): IssuePriority {
 	const mapped = BACKEND_TO_FRONTEND_PRIORITY[backendPriority];
 	if (!mapped) {
-		console.warn(`Unknown backend priority: ${backendPriority}, defaulting to normal`);
+		console.warn(
+			`Unknown backend priority: ${backendPriority}, defaulting to normal`,
+		);
 		return "normal";
 	}
 	return mapped;
@@ -69,7 +81,9 @@ export function mapBackendPriorityToFrontend(backendPriority: string): IssuePrio
 /**
  * Map frontend priority to backend priority
  */
-export function mapFrontendPriorityToBackend(frontendPriority: IssuePriority): string {
+export function mapFrontendPriorityToBackend(
+	frontendPriority: IssuePriority,
+): string {
 	return FRONTEND_TO_BACKEND_PRIORITY[frontendPriority] || "NORMAL";
 }
 
@@ -87,7 +101,9 @@ export function convertBackendIssue(backendIssue: BackendIssue): Issue {
 		assignee: backendIssue.assignedUsername,
 		createdAt: new Date(backendIssue.createdAt),
 		// Use createdAt if updatedAt is null (issue hasn't been updated yet)
-		updatedAt: backendIssue.updatedAt ? new Date(backendIssue.updatedAt) : new Date(backendIssue.createdAt),
+		updatedAt: backendIssue.updatedAt
+			? new Date(backendIssue.updatedAt)
+			: new Date(backendIssue.createdAt),
 		tags: backendIssue.tags || [],
 		description: backendIssue.description,
 	};

@@ -5,7 +5,7 @@
 
 export const API_CONFIG = {
 	BASE_URL: "http://localhost:8080/api",
-	TIMEOUT: 10000, 
+	TIMEOUT: 10000,
 	RETRY_ATTEMPTS: 3,
 	RETRY_DELAY: 1000,
 } as const;
@@ -24,6 +24,7 @@ export const ENDPOINTS = {
 	USERS: {
 		BASE: "/users",
 		BY_ID: (id: number) => `/users/${id}`,
-		BY_DEPARTMENT: (department: string) => `/users?department=${encodeURIComponent(department)}`,
+		BY_DEPARTMENT: (department: string) =>
+			`/users?department=${encodeURIComponent(department)}`,
 	},
 } as const;

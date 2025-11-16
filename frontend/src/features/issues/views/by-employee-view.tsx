@@ -1,6 +1,9 @@
 import { useMemo } from "react";
 import { useShallow } from "zustand/react/shallow";
-import { useIssuesStore, selectEmployeeStats } from "@/features/issues/store/use-issues-store";
+import {
+	useIssuesStore,
+	selectEmployeeStats,
+} from "@/features/issues/store/use-issues-store";
 import { IssuesTableSkeleton } from "@/features/issues/components/issues-table-skeleton";
 import { EmployeeCard } from "@/features/issues/components/employee-card";
 
@@ -10,18 +13,19 @@ import { EmployeeCard } from "@/features/issues/components/employee-card";
  * Shows statistics and issues for each employee
  */
 export function ByEmployeeView() {
-	const { issues, searchQuery, setSearchQuery, hasInitialized } = useIssuesStore(
-		useShallow((state) => ({
-			issues: state.issues,
-			searchQuery: state.searchQuery,
-			setSearchQuery: state.setSearchQuery,
-			hasInitialized: state.hasInitialized,
-		}))
-	);
+	const { issues, searchQuery, setSearchQuery, hasInitialized } =
+		useIssuesStore(
+			useShallow((state) => ({
+				issues: state.issues,
+				searchQuery: state.searchQuery,
+				setSearchQuery: state.setSearchQuery,
+				hasInitialized: state.hasInitialized,
+			})),
+		);
 
-	const employeeStats = useMemo(() =>
-		selectEmployeeStats({ issues }),
-		[issues]
+	const employeeStats = useMemo(
+		() => selectEmployeeStats({ issues }),
+		[issues],
 	);
 
 	const expandAll = () => {
@@ -39,11 +43,13 @@ export function ByEmployeeView() {
 	const filteredEmployees = employeeStats.filter((emp) => {
 		if (!searchQuery) return true;
 
-		const matchesName = emp.name.toLowerCase().includes(searchQuery.toLowerCase());
+		const matchesName = emp.name
+			.toLowerCase()
+			.includes(searchQuery.toLowerCase());
 		const matchesIssue = emp.issues.some(
 			(issue) =>
 				issue.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-				issue.id.toLowerCase().includes(searchQuery.toLowerCase())
+				issue.id.toLowerCase().includes(searchQuery.toLowerCase()),
 		);
 
 		return matchesName || matchesIssue;

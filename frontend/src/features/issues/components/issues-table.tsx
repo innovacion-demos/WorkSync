@@ -1,5 +1,8 @@
 import { useShallow } from "zustand/react/shallow";
-import { useIssuesStore, selectFilteredIssues } from "@/features/issues/store/use-issues-store";
+import {
+	useIssuesStore,
+	selectFilteredIssues,
+} from "@/features/issues/store/use-issues-store";
 import type { IssuePriority, IssueStatus } from "@/features/issues/types/issue";
 
 const statusStyles: Record<IssueStatus, string> = {
@@ -27,13 +30,14 @@ export function IssuesTable() {
 	const filteredIssues = useIssuesStore(useShallow(selectFilteredIssues));
 	const selectedIssues = useIssuesStore((state) => state.selectedIssues);
 
-	const { toggleIssueSelection, selectAllIssues, clearSelection } = useIssuesStore(
-		useShallow((state) => ({
-			toggleIssueSelection: state.toggleIssueSelection,
-			selectAllIssues: state.selectAllIssues,
-			clearSelection: state.clearSelection,
-		}))
-	);
+	const { toggleIssueSelection, selectAllIssues, clearSelection } =
+		useIssuesStore(
+			useShallow((state) => ({
+				toggleIssueSelection: state.toggleIssueSelection,
+				selectAllIssues: state.selectAllIssues,
+				clearSelection: state.clearSelection,
+			})),
+		);
 
 	const allSelected =
 		filteredIssues.length > 0 &&

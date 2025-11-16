@@ -1,10 +1,10 @@
 import { lazy, Suspense } from "react";
 import { IssuesPage } from "@/features/issues/issues-page";
 
-const FloatingChat = lazy(() => 
+const FloatingChat = lazy(() =>
 	import("@/components/floating-chat").then((module) => ({
 		default: module.FloatingChat,
-	}))
+	})),
 );
 
 /**

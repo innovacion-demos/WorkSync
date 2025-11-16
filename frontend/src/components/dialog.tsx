@@ -7,7 +7,12 @@ interface DialogProps {
 	readonly className?: string;
 }
 
-export function Dialog({ isOpen, onClose, children, className = "" }: DialogProps) {
+export function Dialog({
+	isOpen,
+	onClose,
+	children,
+	className = "",
+}: DialogProps) {
 	const dialogRef = useRef<HTMLDialogElement>(null);
 
 	useEffect(() => {

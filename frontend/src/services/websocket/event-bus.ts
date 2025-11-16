@@ -29,22 +29,16 @@ class EventBus {
 		this.client = new StompWebSocketClient(WEBSOCKET_CONFIG);
 	}
 
-	/**
-	 * Connect to WebSocket and set up subscriptions
-	 */
 	connect(): void {
 		if (this.isInitialized) {
-			console.log("[EventBus] Already initialized");
 			return;
 		}
 
-		console.log("[EventBus] Connecting...");
 		this.isInitialized = true;
 
 		this.client.subscribe(TOPICS.ISSUES, (message) => {
 			try {
 				const event: IssueEventMessage = JSON.parse(message.body);
-				console.log("[EventBus] Received Issue Event:", event);
 				this.notifyIssueListeners(event);
 			} catch (err) {
 				console.error("[EventBus] Failed to parse issue event:", err);
@@ -54,19 +48,11 @@ class EventBus {
 		this.client.connect();
 	}
 
-	/**
-	 * Disconnect from WebSocket
-	 */
 	disconnect(): void {
-		console.log("[EventBus] Disconnecting...");
 		this.client.disconnect();
 		this.isInitialized = false;
 	}
 
-	/**
-	 * Subscribe to issue events
-	 * @returns Unsubscribe function
-	 */
 	subscribeToIssues(listener: IssueEventListener): () => void {
 		this.issueListeners = [...this.issueListeners, listener];
 		return () => {
@@ -74,9 +60,6 @@ class EventBus {
 		};
 	}
 
-	/**
-	 * Notify all issue listeners
-	 */
 	private notifyIssueListeners(event: IssueEventMessage): void {
 		for (const listener of this.issueListeners) {
 			try {
@@ -87,9 +70,6 @@ class EventBus {
 		}
 	}
 
-	/**
-	 * Get connection status
-	 */
 	get status() {
 		return this.client.status;
 	}

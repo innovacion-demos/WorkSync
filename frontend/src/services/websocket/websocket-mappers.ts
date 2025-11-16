@@ -4,7 +4,10 @@
  */
 
 import type { Issue } from "@/features/issues/types/issue";
-import { mapBackendStatusToFrontend, mapBackendPriorityToFrontend } from "@/services/issues/issue-mappers";
+import {
+	mapBackendStatusToFrontend,
+	mapBackendPriorityToFrontend,
+} from "@/services/issues/issue-mappers";
 import type { IssueEventMessage } from "@/services/websocket/websocket";
 
 /**

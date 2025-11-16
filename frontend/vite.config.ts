@@ -39,6 +39,12 @@ export default defineConfig({
 	},
 	// Optimize dependencies pre-bundling
 	optimizeDeps: {
-		include: ["react", "react-dom", "zustand", "@stomp/stompjs", "sockjs-client"],
+		include: [
+			"react",
+			"react-dom",
+			"zustand",
+			"@stomp/stompjs",
+			"sockjs-client",
+		],
 	},
 });

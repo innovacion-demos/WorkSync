@@ -40,7 +40,9 @@ export const IssuesSelectionToolbar = memo(function IssuesSelectionToolbar({
 	if (!isVisible) return null;
 
 	return (
-		<div className={`mb-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between ${isExiting ? "animate-slideOutUp" : "animate-slideInDown"}`}>
+		<div
+			className={`mb-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between ${isExiting ? "animate-slideOutUp" : "animate-slideInDown"}`}
+		>
 			<span className="text-sm text-blue-900 font-medium">
 				{selectedCount} issue{selectedCount === 1 ? "" : "s"} selected
 			</span>

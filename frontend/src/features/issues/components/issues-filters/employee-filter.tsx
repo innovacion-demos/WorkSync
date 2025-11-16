@@ -12,7 +12,7 @@ export function EmployeeFilter() {
 			issues: state.issues,
 			filterEmployee: state.filterEmployee,
 			setFilterEmployee: state.setFilterEmployee,
-		}))
+		})),
 	);
 
 	const employeeStats = useMemo(
@@ -47,7 +47,9 @@ export function EmployeeFilter() {
 	];
 
 	const selectedEmployee = allEmployees.find((e) => e.key === filterEmployee);
-	const availableEmployees = allEmployees.filter((e) => e.key !== filterEmployee);
+	const availableEmployees = allEmployees.filter(
+		(e) => e.key !== filterEmployee,
+	);
 
 	return (
 		<div ref={dropdownRef} className="relative">

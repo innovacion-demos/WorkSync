@@ -11,8 +11,6 @@ import { useIssuesStore } from "@/features/issues/store/use-issues-store";
  */
 export function useIssuesSync() {
 	useEffect(() => {
-		console.log("[IssuesSync] Initializing...");
-
 		useIssuesStore.getState().loadIssuesFromAPI();
 
 		const unsubscribe = eventBus.subscribeToIssues((event) => {
@@ -22,7 +20,6 @@ export function useIssuesSync() {
 		eventBus.connect();
 
 		return () => {
-			console.log("[IssuesSync] Cleaning up...");
 			unsubscribe();
 			eventBus.disconnect();
 		};

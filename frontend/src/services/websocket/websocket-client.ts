@@ -3,7 +3,11 @@
  * Abstract interface for WebSocket implementations
  */
 
-export type ConnectionStatus = "disconnected" | "connecting" | "connected" | "error";
+export type ConnectionStatus =
+	| "disconnected"
+	| "connecting"
+	| "connected"
+	| "error";
 
 export interface WebSocketMessage {
 	topic: string;
@@ -19,11 +23,12 @@ export interface WebSocketClientConfig {
 }
 
 export interface WebSocketClient {
-
 	readonly status: ConnectionStatus;
 	connect(): void;
 	disconnect(): void;
-	subscribe(topic: string, callback: (message: WebSocketMessage) => void): () => void;
+	subscribe(
+		topic: string,
+		callback: (message: WebSocketMessage) => void,
+	): () => void;
 	send(destination: string, body: string): void;
-
 }

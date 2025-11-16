@@ -20,7 +20,8 @@ export const usersApi = {
 				: ENDPOINTS.USERS.BASE;
 
 			const response = await fetch(`${API_CONFIG.BASE_URL}${endpoint}`);
-			if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+			if (!response.ok)
+				throw new Error(`HTTP error! status: ${response.status}`);
 			return await response.json();
 		} catch (error) {
 			console.error("[UsersAPI] Failed to fetch users:", error);

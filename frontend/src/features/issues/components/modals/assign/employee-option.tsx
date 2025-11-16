@@ -11,7 +11,7 @@ import type { BackendUser } from "@/services/users/user-types";
 function getEmployeeLabelClasses(
 	isCurrentAssignee: boolean,
 	isSelected: boolean,
-	useCustom: boolean
+	useCustom: boolean,
 ): string {
 	if (isCurrentAssignee) {
 		return "border-gray-200 bg-gray-100 opacity-60 cursor-not-allowed";
@@ -50,7 +50,7 @@ export function EmployeeOption({
 			className={`flex items-center p-3 border-2 rounded-lg transition-all ${getEmployeeLabelClasses(
 				isCurrentAssignee,
 				isSelected,
-				useCustom
+				useCustom,
 			)}`}
 		>
 			<span className="sr-only">Assign to {employee.name}</span>
@@ -76,7 +76,9 @@ export function EmployeeOption({
 							: `${employee.username}${employee.department ? ` • ${employee.department}` : ""} • ${issueCount} issue${issueCount === 1 ? "" : "s"}`}
 					</p>
 				</div>
-				{isCurrentAssignee && <span className="text-xs text-gray-500 italic">Current</span>}
+				{isCurrentAssignee && (
+					<span className="text-xs text-gray-500 italic">Current</span>
+				)}
 			</div>
 		</label>
 	);

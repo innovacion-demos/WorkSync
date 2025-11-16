@@ -36,9 +36,7 @@ export function IssuesPage() {
 									/>
 								</svg>
 							</div>
-							<h1 className="text-lg font-bold text-gray-900">
-								Issues
-							</h1>
+							<h1 className="text-lg font-bold text-gray-900">Issues</h1>
 						</div>
 
 						<nav className="relative flex bg-gray-100 rounded-lg p-1">
@@ -46,7 +44,10 @@ export function IssuesPage() {
 							<div
 								className="absolute top-1 bottom-1 bg-blue-600 rounded-md shadow-sm transition-all duration-300 ease-out"
 								style={{
-									left: currentView === "all-issues" ? "0.25rem" : "calc(50% + 0.125rem)",
+									left:
+										currentView === "all-issues"
+											? "0.25rem"
+											: "calc(50% + 0.125rem)",
 									width: "calc(50% - 0.375rem)",
 								}}
 							/>
@@ -109,11 +110,7 @@ export function IssuesPage() {
 			</div>
 
 			<div>
-				{currentView === "all-issues" ? (
-					<AllIssuesView />
-				) : (
-					<ByEmployeeView />
-				)}
+				{currentView === "all-issues" ? <AllIssuesView /> : <ByEmployeeView />}
 			</div>
 		</div>
 	);
