@@ -1,5 +1,7 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { IssuesPage } from "@/features/issues/issues-page";
+import { VoiceAssistant } from "@/components/voice-assistant/voice-assistant";
+import { audioCache } from "@/services/deepgram/audio-cache";
 
 const FloatingChat = lazy(() =>
 	import("@/components/floating-chat").then((module) => ({
@@ -7,18 +9,18 @@ const FloatingChat = lazy(() =>
 	})),
 );
 
-/**
- * App Root Component
- * Main entry point for the application
- * Handles global layout and feature composition
- */
 function App() {
+	useEffect(() => {
+		audioCache.preload("Hola Andrés, ¿qué necesitas?");
+	}, []);
+
 	return (
 		<>
 			<IssuesPage />
 			<Suspense fallback={null}>
 				<FloatingChat />
 			</Suspense>
+			<VoiceAssistant />
 		</>
 	);
 }
