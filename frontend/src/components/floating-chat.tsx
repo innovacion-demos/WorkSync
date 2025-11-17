@@ -1,4 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import {
+	generateSessionId,
+	sendChatMessage,
+} from "../services/chatbot/chatbot-api";
 
 interface Message {
 	id: string;
@@ -9,26 +13,33 @@ interface Message {
 
 export function FloatingChat() {
 	const [isOpen, setIsOpen] = useState(false);
+	// Generate a new session ID on every mount (volatile - no persistence)
+	const [sessionId] = useState(() => generateSessionId());
+
+	// Initialize with welcome message (volatile - resets on page refresh)
 	const [messages, setMessages] = useState<Message[]>([
 		{
 			id: "1",
-			text: "Hello Andres! I'm your Issues Assistant. I can help you:\n\n• View issues by employee\n• Check issue status\n• Get statistics\n• Find specific issues\n\nHow can I assist you?",
+			text: "Hello! I'm your AI Assistant powered by Google Gemini. I can help you with:\n\n• Answering questions\n• Providing information\n• Having natural conversations\n• And much more!\n\nHow can I assist you today?",
 			sender: "agent",
 			timestamp: new Date(),
 		},
 	]);
+
 	const [inputText, setInputText] = useState("");
 	const [isTyping, setIsTyping] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 
+	// Auto-scroll to bottom when messages change
 	useEffect(() => {
-		if (isOpen && messagesEndRef.current) {
+		if (messagesEndRef.current) {
 			messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
 		}
-	}, [isOpen]);
+	}, [messages, isTyping]);
 
+	// Focus input when opening chat
 	useEffect(() => {
 		if (isOpen && inputRef.current) {
 			inputRef.current.focus();
@@ -37,39 +48,53 @@ export function FloatingChat() {
 
 	const handleSendMessage = async (e: React.FormEvent) => {
 		e.preventDefault();
-		if (!inputText.trim()) return;
+		if (!inputText.trim() || isTyping) return;
 
+		const messageText = inputText.trim();
 		const userMessage: Message = {
-			id: Date.now().toString(),
-			text: inputText.trim(),
+			id: `user-${Date.now()}`,
+			text: messageText,
 			sender: "user",
 			timestamp: new Date(),
 		};
 
+		// Add user message and clear input immediately for better UX
 		setMessages((prev) => [...prev, userMessage]);
 		setInputText("");
 		setIsTyping(true);
 
 		try {
-			// TODO: Integrate with real AI (OpenAI, Claude, etc)
-			await new Promise((resolve) => setTimeout(resolve, 800));
-			const mockReply =
-				"I'm a placeholder response. Connect me to a real AI API (OpenAI, Claude, etc.) to provide intelligent answers about your issues.";
+			// Call the real chatbot API
+			const aiResponse = await sendChatMessage(sessionId, messageText);
 
 			const agentResponse: Message = {
-				id: (Date.now() + 1).toString(),
-				text: mockReply,
+				id: `agent-${Date.now()}`,
+				text: aiResponse,
 				sender: "agent",
 				timestamp: new Date(),
 			};
 
 			setMessages((prev) => [...prev, agentResponse]);
 		} catch (error) {
-			console.error("Error sending message:", error);
+			console.error("[FloatingChat] Error sending message:", error);
+
+			let errorText =
+				"Sorry, I'm having trouble connecting to the AI service. Please try again in a moment.";
+
+			if (error instanceof Error) {
+				// Provide more specific error messages
+				if (error.message.includes("timeout")) {
+					errorText =
+						"The AI is taking too long to respond. Please try a shorter message or try again later.";
+				} else if (error.message.includes("Failed to fetch")) {
+					errorText =
+						"Unable to connect to the chatbot service. Please make sure the backend is running on http://localhost:8000";
+				}
+			}
 
 			const errorMessage: Message = {
-				id: (Date.now() + 1).toString(),
-				text: "Sorry, I'm having trouble processing your message. Please try again.",
+				id: `error-${Date.now()}`,
+				text: errorText,
 				sender: "agent",
 				timestamp: new Date(),
 			};
@@ -92,6 +117,24 @@ export function FloatingChat() {
 		setIsRecording(!isRecording);
 	};
 
+	const handleClearChat = () => {
+		if (
+			window.confirm(
+				"Are you sure you want to clear the chat history? This cannot be undone.",
+			)
+		) {
+			const welcomeMessage: Message = {
+				id: "1",
+				text: "Hello! I'm your AI Assistant powered by Google Gemini. I can help you with:\n\n• Answering questions\n• Providing information\n• Having natural conversations\n• And much more!\n\nHow can I assist you today?",
+				sender: "agent",
+				timestamp: new Date(),
+			};
+			setMessages([welcomeMessage]);
+			// Note: Session ID remains the same for conversation context
+			// If you want a new session, refresh the page
+		}
+	};
+
 	return (
 		<>
 			{isOpen && (
@@ -110,39 +153,62 @@ export function FloatingChat() {
 											strokeLinecap="round"
 											strokeLinejoin="round"
 											strokeWidth={2}
-											d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+											d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
 										/>
 									</svg>
 								</div>
 								<div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white" />
 							</div>
 							<div>
-								<h3 className="font-semibold">Issues Assistant</h3>
+								<h3 className="font-semibold">AI Assistant</h3>
 								<p className="text-xs text-blue-100">
-									AI-powered bot • Always available
+									Powered by Google Gemini 2.5
 								</p>
 							</div>
 						</div>
-						<button
-							type="button"
-							onClick={() => setIsOpen(false)}
-							className="text-white/80 hover:text-white transition-colors"
-							aria-label="Close chat"
-						>
-							<svg
-								className="h-6 w-6"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
+						<div className="flex items-center gap-2">
+							<button
+								type="button"
+								onClick={handleClearChat}
+								className="text-white/80 hover:text-white transition-colors p-1"
+								aria-label="Clear chat history"
+								title="Clear chat history"
 							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M19 9l-7 7-7-7"
-								/>
-							</svg>
-						</button>
+								<svg
+									className="h-5 w-5"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+									/>
+								</svg>
+							</button>
+							<button
+								type="button"
+								onClick={() => setIsOpen(false)}
+								className="text-white/80 hover:text-white transition-colors p-1"
+								aria-label="Close chat"
+							>
+								<svg
+									className="h-6 w-6"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										strokeWidth={2}
+										d="M19 9l-7 7-7-7"
+									/>
+								</svg>
+							</button>
+						</div>
 					</div>
 
 					<div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
