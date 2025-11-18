@@ -1,0 +1,24 @@
+[project]
+name = "mic-chatbot"
+version = "0.1.0"
+description = "Microservice to chat using LLM"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.121.2",
+    "httpx>=0.28.1",
+    "langchain>=1.0.7",
+    "langchain-core>=1.0.5",
+    "langchain-google-genai>=3.0.3",
+    "langchain-mcp-adapters>=0.1.13",
+    "langgraph>=1.0.3",
+    "python-dotenv>=1.2.1",
+    "uvicorn[standard]>=0.38.0",
+]
+
+[project.scripts]
+start = "mic_chatbot.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

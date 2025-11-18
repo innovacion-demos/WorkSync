@@ -10,6 +10,11 @@ export const API_CONFIG = {
 	RETRY_DELAY: 1000,
 } as const;
 
+export const CHATBOT_CONFIG = {
+	BASE_URL: "http://localhost:8000",
+	TIMEOUT: 30000, // 30s for AI responses
+} as const;
+
 /**
  * API Endpoints
  */
@@ -26,5 +31,9 @@ export const ENDPOINTS = {
 		BY_ID: (id: number) => `/users/${id}`,
 		BY_DEPARTMENT: (department: string) =>
 			`/users?department=${encodeURIComponent(department)}`,
+	},
+	CHATBOT: {
+		HEALTH: "/health",
+		CHAT: (sessionId: string) => `/api/v1/chat/${sessionId}`,
 	},
 } as const;

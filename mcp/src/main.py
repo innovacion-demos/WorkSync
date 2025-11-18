@@ -93,5 +93,4 @@ async def delete_user(user_id: int) -> Dict[str, str]:
 
 
 if __name__ == "__main__":
-    # Run as SSE server on port 9001
-    mcp.run(transport="sse", host="127.0.0.1", port=9001)
+    mcp.run(transport="streamable-http", host="127.0.0.1", port=9000)

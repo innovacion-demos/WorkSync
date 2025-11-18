@@ -19,8 +19,11 @@ public class AssignIssueUseCase {
     private final UserRepository userRepository;
     private final ApplicationEventPublisher eventPublisher;
 
-    public AssignIssueUseCase(IssueRepository issueRepository, UserRepository userRepository,
-                             ApplicationEventPublisher eventPublisher) {
+    public AssignIssueUseCase(
+        IssueRepository issueRepository,
+        UserRepository userRepository,
+        ApplicationEventPublisher eventPublisher
+    ) {
         this.issueRepository = issueRepository;
         this.userRepository = userRepository;
         this.eventPublisher = eventPublisher;
@@ -44,14 +47,22 @@ public class AssignIssueUseCase {
         }
 
         // Retrieve the issue
-        Issue issue = issueRepository.findById(issueId)
-                .orElseThrow(() -> new GetIssueByIdUseCase.IssueNotFoundException(
-                        "Issue not found with id: " + issueId));
+        Issue issue = issueRepository
+            .findById(issueId)
+            .orElseThrow(() ->
+                new GetIssueByIdUseCase.IssueNotFoundException(
+                    "Issue not found with id: " + issueId
+                )
+            );
 
         // Retrieve the user
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new GetUserByIdUseCase.UserNotFoundException(
-                        "User not found with id: " + userId));
+        User user = userRepository
+            .findById(userId)
+            .orElseThrow(() ->
+                new GetUserByIdUseCase.UserNotFoundException(
+                    "User not found with id: " + userId
+                )
+            );
 
         // Use domain method to assign (business logic in domain)
         issue.assign(user);
@@ -60,7 +71,14 @@ public class AssignIssueUseCase {
         Issue updatedIssue = issueRepository.save(issue);
 
         // Publish event for real-time updates
-        eventPublisher.publishEvent(new IssueEvent(this, updatedIssue, IssueEvent.EventType.ASSIGNED, userId));
+        eventPublisher.publishEvent(
+            new IssueEvent(
+                this,
+                updatedIssue,
+                IssueEvent.EventType.ASSIGNED,
+                userId
+            )
+        );
 
         return updatedIssue;
     }
