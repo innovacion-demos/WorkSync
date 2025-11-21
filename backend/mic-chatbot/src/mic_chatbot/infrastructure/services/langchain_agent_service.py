@@ -22,9 +22,9 @@ class LangChainAgentService(AgentService):
     """
 
     # Hardcoded configuration (shared with LangGraph implementation)
-    _GEMINI_API_KEY: str = "Dont look here :P"
+    _GEMINI_API_KEY: str = "AIzaSyAIUSAqryCSdyEFLBlccIwGL-Czt4aXhwg"
     _MCP_SERVER_URLS: List[str] = [
-        "http://127.0.0.1:9001/mcp",
+        "http://127.0.0.1:9000/mcp",
     ]
     _GEMINI_MODEL: str = "gemini-2.5-flash"
     _TEMPERATURE: float = 0.2

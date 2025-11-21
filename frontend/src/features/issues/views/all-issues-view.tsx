@@ -56,7 +56,6 @@ export function AllIssuesView() {
 				<div className="max-w-[1600px] mx-auto px-6 py-8">
 					<IssuesHeader
 						onCreateIssue={() => setActiveModal("create")}
-						onCreateFromText={() => setActiveModal("createFromText")}
 					/>
 
 					<IssuesFiltersSkeleton />
@@ -82,7 +81,6 @@ export function AllIssuesView() {
 				<div className="max-w-[1600px] mx-auto px-6 py-8">
 					<IssuesHeader
 						onCreateIssue={() => setActiveModal("create")}
-						onCreateFromText={() => setActiveModal("createFromText")}
 					/>
 					<IssuesEmptyState onCreateIssue={() => setActiveModal("create")} />
 					<IssuesModals
@@ -101,7 +99,6 @@ export function AllIssuesView() {
 			<div className="max-w-[1600px] mx-auto px-6 py-8">
 				<IssuesHeader
 					onCreateIssue={() => setActiveModal("create")}
-					onCreateFromText={() => setActiveModal("createFromText")}
 				/>
 
 				<IssuesFilters

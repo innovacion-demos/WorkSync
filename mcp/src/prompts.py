@@ -1,5 +1,8 @@
 """
 Tool Prompts and Descriptions - Clean separation of documentation
+
+NOTE: All tools return human-readable, simplified information that anyone can understand.
+The responses contain everyday language explanations, not technical details or jargon.
 """
 
 CREATE_ISSUE = """
@@ -10,7 +13,9 @@ Args:
     description: Issue description (required)
 
 Returns:
-    Created issue with status OPEN and assigned ID
+    Human-readable information about the created issue in simple terms,
+    including the issue ID, title, status, and when it was created.
+    The response uses everyday language that anyone can understand.
 
 Example:
     title: "Fix login bug"
@@ -21,11 +26,9 @@ LIST_ISSUES = """
 List all issues in the system.
 
 Returns:
-    List of all issues with their details including:
-    - ID, title, description
-    - Status (OPEN, IN_PROGRESS, RESOLVED, CLOSED, REJECTED)
-    - Assigned user information
-    - Created and updated timestamps
+    Simplified, easy-to-read list of all issues with basic information that anyone
+    can understand, including titles, statuses (like "Open", "In Progress", etc.),
+    who they're assigned to, and when they were created. No technical details.
 """
 
 GET_ISSUE = """
@@ -35,7 +38,9 @@ Args:
     issue_id: The ID of the issue to retrieve
 
 Returns:
-    Complete issue details including title, description, status, assignee, and timestamps
+    Clear, human-friendly information about the issue including its title, description,
+    current status, who's working on it, and relevant dates. All in plain language
+    that anyone can understand without technical knowledge.
 """
 
 ASSIGN_ISSUE = """
@@ -46,7 +51,8 @@ Args:
     user_id: The ID of the user to assign the issue to
 
 Returns:
-    Updated issue with assigned user and IN_PROGRESS status
+    Plain-language confirmation showing the issue was assigned, who it's assigned to,
+    and the updated status. Presented in simple, everyday terms without technical jargon.
 
 Business Rule:
     Assigning an issue automatically changes its status to IN_PROGRESS
@@ -60,7 +66,8 @@ Args:
     user_id: The ID of the user performing the action (optional, defaults to 0)
 
 Returns:
-    Updated issue without assignee and OPEN status
+    Simple, clear confirmation that the issue is no longer assigned and is now
+    available for anyone to take. Explained in friendly, everyday language.
 
 Business Rule:
     Unassigning an issue automatically reverts its status to OPEN
@@ -75,7 +82,8 @@ Args:
     user_id: The ID of the user performing the update
 
 Returns:
-    Updated issue with new status
+    Friendly, understandable information about the issue's new status and what that
+    means, expressed in plain terms that anyone can grasp without technical background.
 
 Business Rules:
     - Only IN_PROGRESS issues can be marked as RESOLVED
@@ -98,7 +106,9 @@ Args:
     email: Email address (required)
 
 Returns:
-    Created user with assigned ID
+    Straightforward information about the newly created user in simple terms,
+    including their ID, name, and contact details. Presented in an easy-to-read,
+    non-technical format that anyone can understand.
 
 Example:
     username: "johndoe"
@@ -114,11 +124,9 @@ Args:
     department: Filter users by department (optional)
 
 Returns:
-    List of users with their profile information including:
-    - ID, username, name
-    - Email, phone, address
-    - Department
-    - Created and updated timestamps
+    A simple, readable list of users with their basic information presented
+    in plain language. Includes names, departments, and contact details in a
+    format that anyone can easily understand without technical expertise.
 
 Example:
     department: "Engineering"  # Returns only Engineering users
@@ -132,7 +140,9 @@ Args:
     user_id: The ID of the user to retrieve
 
 Returns:
-    Complete user profile including name, email, phone, address, and department
+    Clear, human-friendly information about the user presented in plain language,
+    including their name, contact details, and department. Easy to understand
+    without any technical knowledge.
 """
 
 UPDATE_USER = """
@@ -147,7 +157,9 @@ Args:
     department: Department (optional)
 
 Returns:
-    Updated user profile
+    Easy-to-understand confirmation of what was updated, showing the user's
+    new information in a friendly, readable format with plain language that
+    anyone can comprehend without technical background.
 
 Note:
     Only provided fields will be updated. Omitted fields remain unchanged.
@@ -166,7 +178,8 @@ Args:
     user_id: The ID of the user to delete
 
 Returns:
-    Success confirmation
+    A simple confirmation message that the user was removed,
+    expressed in clear, everyday language that anyone can understand.
 
 Warning:
     This operation is permanent and cannot be undone.

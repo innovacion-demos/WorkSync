@@ -28,7 +28,6 @@ export function FloatingChat() {
 
 	const [inputText, setInputText] = useState("");
 	const [isTyping, setIsTyping] = useState(false);
-	const [isRecording, setIsRecording] = useState(false);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 	const inputRef = useRef<HTMLInputElement>(null);
 
@@ -110,11 +109,6 @@ export function FloatingChat() {
 			hour: "2-digit",
 			minute: "2-digit",
 		});
-	};
-
-	const handleVoiceRecording = () => {
-		// TODO: Implement voice recording
-		setIsRecording(!isRecording);
 	};
 
 	const handleClearChat = () => {
@@ -260,69 +254,19 @@ export function FloatingChat() {
 						className="p-4 bg-white border-t border-gray-200 rounded-b-2xl"
 					>
 						<div className="flex gap-2 items-end">
-							<button
-								type="button"
-								onClick={handleVoiceRecording}
-								className={`p-2.5 rounded-xl transition-all ${
-									isRecording
-										? "bg-red-500 text-white hover:bg-red-600 animate-pulse"
-										: "bg-gray-100 text-gray-600 hover:bg-gray-200"
-								} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
-								title={isRecording ? "Stop recording" : "Start voice recording"}
-								aria-label={
-									isRecording ? "Stop recording" : "Start voice recording"
-								}
-							>
-								{isRecording ? (
-									<svg
-										className="h-5 w-5"
-										fill="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<rect x="6" y="6" width="12" height="12" rx="2" />
-									</svg>
-								) : (
-									<svg
-										className="h-5 w-5"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-										/>
-									</svg>
-								)}
-							</button>
-
-							<div className="flex-1 relative">
-								<input
-									ref={inputRef}
-									type="text"
-									value={inputText}
-									onChange={(e) => setInputText(e.target.value)}
-									placeholder={
-										isRecording ? "Recording..." : "Type a message..."
-									}
-									disabled={isRecording}
-									className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm disabled:bg-gray-50 disabled:cursor-not-allowed"
-									aria-label="Chat message input"
-								/>
-								{isRecording && (
-									<div className="absolute right-3 top-1/2 -translate-y-1/2 flex gap-1">
-										<div className="w-1 h-3 bg-red-500 rounded-full animate-pulse" />
-										<div className="w-1 h-4 bg-red-500 rounded-full animate-pulse delay-100" />
-										<div className="w-1 h-3 bg-red-500 rounded-full animate-pulse delay-200" />
-									</div>
-								)}
-							</div>
+							<input
+								ref={inputRef}
+								type="text"
+								value={inputText}
+								onChange={(e) => setInputText(e.target.value)}
+								placeholder="Type a message..."
+								className="flex-1 px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+								aria-label="Chat message input"
+							/>
 
 							<button
 								type="submit"
-								disabled={!inputText.trim() || isRecording}
+								disabled={!inputText.trim()}
 								className="px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all disabled:bg-gray-300 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
 								title="Send message"
 								aria-label="Send message"
@@ -336,13 +280,6 @@ export function FloatingChat() {
 								</svg>
 							</button>
 						</div>
-
-						{isRecording && (
-							<div className="mt-2 flex items-center gap-2 text-red-500 text-xs">
-								<div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-								<span className="font-medium">Recording audio...</span>
-							</div>
-						)}
 					</form>
 				</div>
 			)}

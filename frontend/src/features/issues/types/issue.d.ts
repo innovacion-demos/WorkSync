@@ -13,4 +13,5 @@ export interface Issue {
 	updatedAt: Date;
 	tags: string[];
 	description?: string;
+	isNew?: boolean; // Flag to highlight newly created issues
 }

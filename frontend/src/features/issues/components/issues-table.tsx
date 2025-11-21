@@ -123,8 +123,12 @@ export function IssuesTable() {
 							filteredIssues.map((issue) => (
 								<tr
 									key={issue.id}
-									className={`hover:bg-gray-50 transition-colors ${
-										selectedIssues.has(issue.id) ? "bg-blue-50" : ""
+									className={`transition-all duration-300 ${
+										issue.isNew
+											? "bg-blue-100 hover:bg-blue-100 animate-highlight-fade"
+											: selectedIssues.has(issue.id)
+												? "bg-blue-50 hover:bg-gray-50"
+												: "hover:bg-gray-50"
 									}`}
 								>
 									<td className="px-4 py-4">

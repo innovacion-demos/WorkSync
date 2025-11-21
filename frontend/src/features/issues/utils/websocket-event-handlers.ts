@@ -30,9 +30,18 @@ export const handleCreateEvent: EventHandler = (event, issueId, set) => {
 			return {};
 		}
 		return {
-			issues: [newIssue, ...state.issues],
+			issues: [{ ...newIssue, isNew: true }, ...state.issues],
 		};
 	});
+
+	// Remove the "new" flag after 1.5 seconds
+	setTimeout(() => {
+		set((state) => ({
+			issues: state.issues.map((issue) =>
+				issue.id === issueId ? { ...issue, isNew: false } : issue
+			),
+		}));
+	}, 1500);
 };
 
 export const handleUpdateEvent: EventHandler = (event, issueId, set) => {
